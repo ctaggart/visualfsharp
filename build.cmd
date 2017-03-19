@@ -454,6 +454,8 @@ set _nrswitch=/nr:false
 rem uncomment to use coreclr msbuild not ready yet!!!!
 rem set _msbuildexe=%~dp0Tools\CoreRun.exe %~dp0Tools\MSBuild.exe
 rem set _nrswitch=
+echo "using msbuild: %_msbuildexe%"
+goto :eof
 
 :: See <http://www.appveyor.com/docs/environment-variables>
 if defined APPVEYOR (
@@ -488,7 +490,7 @@ if '%RestorePackages%' == 'true' (
         %_nugetexe% restore setup\packages.config -PackagesDirectory packages -ConfigFile %_nugetconfig%
         @if ERRORLEVEL 1 echo Error: Nuget restore failed  && goto :failure
     )
-    
+
     msbuild /t:restore VisualFSharp.sln /v:m
 )
 
