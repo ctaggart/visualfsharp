@@ -519,20 +519,10 @@
     <Exec Command="$(MSBuildThisFileDirectory)..\Tools\dotnetcli\dotnet.exe --verbose publish --no-build DeployCompiler\fsi\project.json -r $(DOTNET_PUBLISH_PLATFORM) -c $(Configuration) -o $(DOTNET_PUBLISH_FSI_PATH)"/>
   </Target>
 
-  <Target Name="GenerateSourceLink" BeforeTargets="CoreCompile" Condition="'$(UseSourceLink)' == 'true'">
-    <PropertyGroup>
-      <SrcRootDirectory>$([System.IO.Directory]::GetParent($(MSBuildThisFileDirectory.TrimEnd("\"))))</SrcRootDirectory>
-    </PropertyGroup>
-    <Exec Command="git config --get remote.origin.url" ConsoleToMsBuild="true">
-      <Output TaskParameter="ConsoleOutput" PropertyName="RemoteUri" />
-    </Exec>
-
-    <!-- https://raw.githubusercontent.com/KevinRansom/visualfsharp/98e8c9a2ca09a36ebd024eb424fc050a831053cd/build.cmd  -->
-    <Exec Command="git rev-parse HEAD" ConsoleToMsBuild="true">
-      <Output TaskParameter="ConsoleOutput" PropertyName="LatestCommit" />
-    </Exec>
-    <WriteLinesToFile File="$(IntermediateOutputPath)source_link.json" Overwrite="true" Lines='{"documents": { "$(SrcRootDirectory)/*" : "$(RemoteUri.Replace(".git", "").Replace("github.com", "raw.githubusercontent.com"))/$(LatestCommit)/*" }}' />
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="SourceLink.Create.GitHub" Version="2.0.2" PrivateAssets="All" /> 
+    <DotNetCliToolReference Include="dotnet-sourcelink-git" Version="2.0.2" />
+  </ItemGroup>
 
     <!-- If BuildVersionFilePath not specified then do nothing  -->
   <Target Name="CleanVersionFile" Condition ="'$(BuildVersionFilePath)' != '' ">

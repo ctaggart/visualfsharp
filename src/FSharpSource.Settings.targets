@@ -41,7 +41,6 @@
 
   <PropertyGroup Condition="'$(MonoPackaging)' != 'true' AND '$(OS)' != 'Unix'">
     <UseMicroBuild>true</UseMicroBuild>
-    <UseSourceLink>true</UseSourceLink>
     <UseGatherBinaries>true</UseGatherBinaries>
     <AddVsSdkAttributesToSomeCoreComponents>true</AddVsSdkAttributesToSomeCoreComponents>
     <VsSDKInstall Condition=" '$(VsSDKInstall)' == '' ">$(MSBuildThisFileDirectory)..\packages\$(VSSDK_BUILDTOOLS_VERSION)\tools\vssdk</VsSDKInstall>
@@ -58,13 +57,12 @@
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <!-- Settings for Debug mode.		-->
-    <DebugType Condition=" '$(DebugType)' == '' and  '$(TargetFramework)' != 'coreclr' ">full</DebugType>
-    <DebugType Condition=" '$(DebugType)' == '' and  '$(TargetFramework)' == 'coreclr' ">portable</DebugType>
+    <DebugType Condition=" '$(DebugType)' == '' and  '$(TargetFramework)' != 'coreclr' ">embedded</DebugType>
+    <DebugType Condition=" '$(DebugType)' == '' and  '$(TargetFramework)' == 'coreclr' ">embedded</DebugType>
     <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
     <ErrorReport Condition=" '$(ErrorReport)' == '' ">prompt</ErrorReport>
     <OtherFlags>$(OtherFlags) --no-jit-optimize</OtherFlags>
     <EmbedAllSource Condition=" '$(DebugType)' == 'portable' or '$(DebugType)' == 'embedded' ">true</EmbedAllSource>
-    <SourceLink     Condition=" '$(UseSourceLink)' == 'true' AND ('$(DebugType)' == 'portable' or '$(DebugType)' == 'embedded') ">$(IntermediateOutputPath)source_link.json</SourceLink>
     <DefineConstants Condition=" '$(ProjectLanguage)' != 'VisualBasic' ">DEBUG;TRACE;CODE_ANALYSIS;$(DefineConstants)</DefineConstants>
     <DefineConstants Condition=" '$(ProjectLanguage)' == 'VisualBasic' ">DEBUG=True,TRACE=True,CODE_ANALYSIS=True,$(DefineConstants)</DefineConstants>
     <SIGN_WITH_MSFT_KEY Condition=" '$(SIGN_WITH_MSFT_KEY)' == '' ">false</SIGN_WITH_MSFT_KEY>
@@ -72,7 +70,7 @@
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <!-- Flags used for Release mode.		-->
-    <DebugType Condition=" '$(DebugType)' == '' ">pdbonly</DebugType>
+    <DebugType Condition=" '$(DebugType)' == '' ">embedded</DebugType>
     <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
     <EmbedAllSource>false</EmbedAllSource>
     <ErrorReport Condition=" '$(ErrorReport)' == '' ">prompt</ErrorReport>
