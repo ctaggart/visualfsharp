@@ -5,7 +5,8 @@ init:
   - set VS150COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\
 
 build_script:
-  - build.cmd release diag
+  - msbuild /t:restore .\src\fsharp\Fsc\Fsc.fsproj
+  # - build.cmd release diag
 
 test: off
 version: '{build}'
