@@ -4,7 +4,6 @@ init:
   - git config --global core.autocrlf input
 
 build_script:
-  - where msbuild
   - build.cmd
 
 test: off
