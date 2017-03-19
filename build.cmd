@@ -474,6 +474,7 @@ set _nugetexe="%~dp0.nuget\NuGet.exe"
 set _nugetconfig="%~dp0.nuget\NuGet.Config"
 
 if '%RestorePackages%' == 'true' (
+    %_nugetexe% update -self
     %_ngenexe% install %_nugetexe%  /nologo 
 
     %_nugetexe% restore packages.config -PackagesDirectory packages -ConfigFile %_nugetconfig%

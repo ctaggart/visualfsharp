@@ -430,7 +430,7 @@
     <Error Text="Expect $(FsYaccToolPath)\$(FsYaccToolExe) to exist" Condition="!Exists('$(FsYaccToolPath)\$(FsYaccToolExe)')" />
   </Target>
 
-  <Import Condition="'$(ProjectLanguage)' == 'FSharp'" Project="$(FSharpTargetsPath)"/>
+  <Import Condition="'$(ProjectLanguage)' == 'FSharp' and Exists('$(FSharpTargetsPath)')" Project="$(FSharpTargetsPath)"/>
 
   <!-- Hook up .NET Core to enable solution refresh of packages -->
   <PropertyGroup Condition="'$(TargetFramework)'=='coreclr'">
@@ -491,15 +491,6 @@
         <CompileAfter Include="@(CompileBefore)"/>
         <CompileBefore Remove="@(CompileBefore)"/>   
     </ItemGroup>
-  </Target>
-
-  <Target Name="dotnetrestore" BeforeTargets="Build" Condition=" '$(TargetFramework)' == 'coreclr' ">
-   <Exec Command="$(MSBuildThisFileDirectory)..\.nuget\nuget.exe restore -PackagesDirectory $(PackagesDir) -Config $(MSBuildThisFileDirectory)..\.nuget\NuGet.Config project.json" />
-  </Target>
-
-  <Target Name="dotnetrestore" BeforeTargets="Build" Condition=" '$(DOTNET_PUBLISH)' == 'true' ">
-    <SetEnvVar Name="NUGET_PACKAGES" Value="$(NUGET_PACKAGES)" />
-    <Exec Command="$(MSBuildThisFileDirectory)..\Tools\dotnetcli\dotnet.exe restore --configfile $(MSBuildThisFileDirectory)..\.nuget\NuGet.Config project.json"/>
   </Target>
 
   <Target Name="dotnetpublish" AfterTargets="Build" Condition=" '$(DOTNET_PUBLISH)' == 'true' ">
