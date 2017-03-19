@@ -474,20 +474,21 @@ set _nugetexe="%~dp0.nuget\NuGet.exe"
 set _nugetconfig="%~dp0.nuget\NuGet.Config"
 
 if '%RestorePackages%' == 'true' (
-    REM %_ngenexe% install %_nugetexe%  /nologo 
+    %_ngenexe% install %_nugetexe%  /nologo 
 
-    REM %_nugetexe% restore packages.config -PackagesDirectory packages -ConfigFile %_nugetconfig%
-    REM @if ERRORLEVEL 1 echo Error: Nuget restore failed  && goto :failure
+    %_nugetexe% restore packages.config -PackagesDirectory packages -ConfigFile %_nugetconfig%
+    @if ERRORLEVEL 1 echo Error: Nuget restore failed  && goto :failure
 
-    REM if '%BUILD_VS%' == '1' (
-    REM     %_nugetexe% restore vsintegration\packages.config -PackagesDirectory packages -ConfigFile %_nugetconfig%
-    REM     @if ERRORLEVEL 1 echo Error: Nuget restore failed  && goto :failure
-    REM )
+    if '%BUILD_VS%' == '1' (
+        %_nugetexe% restore vsintegration\packages.config -PackagesDirectory packages -ConfigFile %_nugetconfig%
+        @if ERRORLEVEL 1 echo Error: Nuget restore failed  && goto :failure
+    )
 
-    REM if '%BUILD_SETUP%' == '1' (
-    REM     %_nugetexe% restore setup\packages.config -PackagesDirectory packages -ConfigFile %_nugetconfig%
-    REM     @if ERRORLEVEL 1 echo Error: Nuget restore failed  && goto :failure
-    REM )
+    if '%BUILD_SETUP%' == '1' (
+        %_nugetexe% restore setup\packages.config -PackagesDirectory packages -ConfigFile %_nugetconfig%
+        @if ERRORLEVEL 1 echo Error: Nuget restore failed  && goto :failure
+    )
+    
     msbuild /t:restore VisualFSharp.sln /v:m
 )
 
