@@ -474,9 +474,8 @@ set _nugetexe="%~dp0.nuget\NuGet.exe"
 set _nugetconfig="%~dp0.nuget\NuGet.Config"
 
 if '%RestorePackages%' == 'true' (
-    %_msbuildexe% /t:restore VisualFSharp.sln /p:Configuration=%BUILD_CONFIG% %BUILD_DIAG%
 
-    REM %_ngenexe% install %_nugetexe%  /nologo 
+    %_ngenexe% install %_nugetexe%  /nologo 
 
     %_nugetexe% restore packages.config -PackagesDirectory packages -ConfigFile %_nugetconfig%
     @if ERRORLEVEL 1 echo Error: Nuget restore failed  && goto :failure
@@ -490,6 +489,8 @@ if '%RestorePackages%' == 'true' (
         %_nugetexe% restore setup\packages.config -PackagesDirectory packages -ConfigFile %_nugetconfig%
         @if ERRORLEVEL 1 echo Error: Nuget restore failed  && goto :failure
     )
+
+    %_msbuildexe% /t:restore VisualFSharp.sln /p:Configuration=%BUILD_CONFIG% %BUILD_DIAG%
 )
 
 if '%BUILD_PROTO_WITH_CORECLR_LKG%' == '1' (
