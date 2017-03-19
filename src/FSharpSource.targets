@@ -493,9 +493,6 @@
     </ItemGroup>
   </Target>
 
-  <Target Name="_GenerateRestoreGraphProjectEntry"/>
-  <Target Name="_GenerateRestoreGraphWalk"/>
-
   <Target Name="dotnetpublish" AfterTargets="Build" Condition=" '$(DOTNET_PUBLISH)' == 'true' ">
     <SetEnvVar Name="NUGET_PACKAGES" Value="$(NUGET_PACKAGES)" />
     <Exec Command="$(MSBuildThisFileDirectory)..\Tools\dotnetcli\dotnet.exe --verbose publish --no-build project.json -r $(DOTNET_PUBLISH_PLATFORM) -c $(Configuration) -o $(DOTNET_PUBLISH_PATH)"/>
