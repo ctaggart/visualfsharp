@@ -411,7 +411,6 @@
   </Choose>
   <PropertyGroup>
     <CompileDependsOn>ValidateBuildTools;$(CompileDependsOn)</CompileDependsOn>
-    <IsProtoTargets>$(FSharpTargetsPath.Contains('proto'))</IsProtoTargets>
   </PropertyGroup>
 
   <Target Name="ValidateBuildTools" Condition="'$(ProjectLanguage)' == 'FSharp'" >
@@ -432,7 +431,7 @@
   </Target>
 
   <Import Condition="'$(ProjectLanguage)' == 'FSharp' and Exists('$(FSharpTargetsPath)')" Project="$(FSharpTargetsPath)"/>
-  <Import Condition="'$(IsProtoTargets)' != 'true'" Project="$(MSBuildBinPath)\Microsoft.Common.targets"/>
+  <Import Condition="!Exists('$(FSharpTargetsPath)')" Project="$(MSBuildBinPath)\Microsoft.Common.targets"/>
 
   <!-- Hook up .NET Core to enable solution refresh of packages -->
   <PropertyGroup Condition="'$(TargetFramework)'=='coreclr'">
