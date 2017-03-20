@@ -489,7 +489,8 @@ if '%RestorePackages%' == 'true' (
         @if ERRORLEVEL 1 echo Error: Nuget restore failed  && goto :failure
     )
 
-    %_msbuildexe% /t:restore VisualFSharp.sln /p:Configuration=%BUILD_CONFIG% %BUILD_DIAG%
+    REM %_msbuildexe% /t:restore VisualFSharp.sln /p:Configuration=%BUILD_CONFIG% %BUILD_DIAG%
+    dotnet restore VisualFSharp.sln
 )
 
 if '%BUILD_PROTO_WITH_CORECLR_LKG%' == '1' (

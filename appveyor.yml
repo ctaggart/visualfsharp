@@ -15,7 +15,7 @@ build_script:
   # - .\.nuget\NuGet.exe restore packages.config -PackagesDirectory packages -ConfigFile .\.nuget\NuGet.Config
   # - msbuild /t:restore .\src\fsharp\Fsc\Fsc.fsproj /v:diag
 
-  - dotnet --version
+  # - dotnet restore VisualFSharp.sln
   - build.cmd release publicsign
 
 test: off
