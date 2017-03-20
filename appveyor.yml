@@ -5,8 +5,11 @@ init:
   - set VS150COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\
 
 build_script:
-  - .\.nuget\NuGet.exe restore packages.config -PackagesDirectory packages -ConfigFile .\.nuget\NuGet.Config
-  - msbuild /t:restore .\src\fsharp\Fsc\Fsc.fsproj /v:diag
+  - ps: |
+      Install-Module VSSetup -Scope CurrentUser
+      Get-VSSetupInstance
+  # - .\.nuget\NuGet.exe restore packages.config -PackagesDirectory packages -ConfigFile .\.nuget\NuGet.Config
+  # - msbuild /t:restore .\src\fsharp\Fsc\Fsc.fsproj /v:diag
   # - build.cmd release diag
 
 test: off
