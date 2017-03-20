@@ -512,9 +512,12 @@
     <Exec Command="$(MSBuildThisFileDirectory)..\Tools\dotnetcli\dotnet.exe --verbose publish --no-build DeployCompiler\fsi\project.json -r $(DOTNET_PUBLISH_PLATFORM) -c $(Configuration) -o $(DOTNET_PUBLISH_FSI_PATH)"/>
   </Target>
 
+  <PropertyGroup>
+    <SourceLinkCreate>true</SourceLinkCreate>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="SourceLink.Create.GitHub" Version="2.0.2" PrivateAssets="All" /> 
-    <DotNetCliToolReference Include="dotnet-sourcelink-git" Version="2.0.2" />
+    <PackageReference Include="SourceLink.Create.GitHub" Version="2.1.0-b433" PrivateAssets="All" /> 
+    <DotNetCliToolReference Include="dotnet-sourcelink-git" Version="2.1.0-b433" />
   </ItemGroup>
 
     <!-- If BuildVersionFilePath not specified then do nothing  -->
