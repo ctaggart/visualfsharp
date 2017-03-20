@@ -6,7 +6,7 @@ init:
 
 build_script:
   - ps: |
-      Install-Module VSSetup -Scope CurrentUser
+      Install-Module VSSetup -Scope CurrentUser -Force
       Get-VSSetupInstance
   # - .\.nuget\NuGet.exe restore packages.config -PackagesDirectory packages -ConfigFile .\.nuget\NuGet.Config
   # - msbuild /t:restore .\src\fsharp\Fsc\Fsc.fsproj /v:diag
