@@ -5,7 +5,7 @@ init:
   - set VS150COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\
 
 build_script:
-  - ps: |
+  # - ps: |
       # Install-Module VSSetup -Scope CurrentUser -Force
       # $vs = (Get-VSSetupInstance)[0]
       # $vs | fl *
@@ -15,6 +15,7 @@ build_script:
   # - .\.nuget\NuGet.exe restore packages.config -PackagesDirectory packages -ConfigFile .\.nuget\NuGet.Config
   # - msbuild /t:restore .\src\fsharp\Fsc\Fsc.fsproj /v:diag
 
+  - dotnet --version
   - build.cmd release publicsign
 
 test: off
