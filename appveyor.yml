@@ -8,7 +8,7 @@ build_script:
   - ps: |
       Install-Module VSSetup -Scope CurrentUser -Force
       $vs = (Get-VSSetupInstance)[0]
-      $vs | fl -all
+      $vs | fl *
       $vs.Packages | where {$_.Id -like '*NuGet*'} | ft
       $vs.Packages | where {$_.Id -like '*FSharp*'} | ft
 
