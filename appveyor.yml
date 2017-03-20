@@ -6,15 +6,16 @@ init:
 
 build_script:
   - ps: |
-      Install-Module VSSetup -Scope CurrentUser -Force
-      $vs = (Get-VSSetupInstance)[0]
-      $vs | fl *
-      $vs.Packages | where {$_.Id -like '*NuGet*'} | ft
-      $vs.Packages | where {$_.Id -like '*FSharp*'} | ft
+      # Install-Module VSSetup -Scope CurrentUser -Force
+      # $vs = (Get-VSSetupInstance)[0]
+      # $vs | fl *
+      # $vs.Packages | where {$_.Id -like '*NuGet*'} | ft
+      # $vs.Packages | where {$_.Id -like '*FSharp*'} | ft
 
   # - .\.nuget\NuGet.exe restore packages.config -PackagesDirectory packages -ConfigFile .\.nuget\NuGet.Config
   # - msbuild /t:restore .\src\fsharp\Fsc\Fsc.fsproj /v:diag
-  # - build.cmd release diag
+
+  - build.cmd release
 
 test: off
 version: '{build}'
